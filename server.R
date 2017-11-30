@@ -32,7 +32,7 @@ both.sex <- both.sex[,-c(3:5)]
 both.sex.wrangled <- both.sex %>% 
                       filter(!is.na(X1990) & !is.na(X2013)) %>% 
                       group_by(Country) %>% 
-                      summarize(change = sum(X2013, -X1990, na.rm = TRUE) / 24)
+                      mutate(change = sum(X2013, -X1990, na.rm = TRUE) / 24)
 
   
   
