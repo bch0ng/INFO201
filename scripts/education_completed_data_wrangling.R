@@ -40,5 +40,6 @@ CalculateAvgChange <- function(data.transpose) {
 
 RemoveNA <- function(input.data) {
 	output.data <- input.data[!(is.na(input.data$avg.change) | input.data$avg.change==""), ]
+	colnames(output.data) <- c("country.code", "country.name", c(1990:2014), "avg.change")
 	return(output.data)
 }
