@@ -1,0 +1,9 @@
+#sidebar {
+  color: #466551;
+  background-color: #DCE8BA;
+  margin: 0 auto !important;
+  right: 0;
+}
+.header, #tableHeader {
+  text-align: center;
+}
