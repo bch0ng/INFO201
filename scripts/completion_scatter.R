@@ -7,9 +7,12 @@ boys.completion <- FormatData(read.csv('./data/Completion_boys.csv', stringsAsFa
 both.completion <- FormatData(read.csv('./data/Completion_both.csv', stringsAsFactors = FALSE))
 
 #Calculate average value for both boys and girls separately
-
-#Function: calculate average boys and girls for chosen country
-
+#Look @ girls, boys, both
+#Calculate average for all countries together by year
+#Put into dataframe
+girls.completion %>% summarize(avg_by_year = mean(X1990, na.rm = TRUE))
+apply(GetCountryData("Algeria", "girls"), 2, mean, na.rm = TRUE)
+foo <- data.frame(colMeans(test[c(3:length(girls.completion))], na.rm=TRUE))
 
 #Function: filter for country in dataset
 GetCountryData <- function(country, sex) {
@@ -25,5 +28,5 @@ GetCountryData <- function(country, sex) {
 }
 
 #View(GetCountryData("Algeria", "both"))
-#View(GetCountryData("Algeria", "girls"))
+test <- GetCountryData("Algeria", "girls")
 
