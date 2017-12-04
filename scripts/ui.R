@@ -24,5 +24,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                     max = 115, value = c(30,115))
       )
     )
-  )
+  ),
+  tabPanel('Country Averages',
+           tableOutput("scatter.table"))
 ))

@@ -6,13 +6,11 @@ girls.completion <- FormatData(read.csv('./data/Completion_girls.csv', stringsAs
 boys.completion <- FormatData(read.csv('./data/Completion_boys.csv', stringsAsFactors = FALSE))
 both.completion <- FormatData(read.csv('./data/Completion_both.csv', stringsAsFactors = FALSE))
 
-#Calculate average value for both boys and girls separately
-#Look @ girls, boys, both
-#Calculate average for all countries together by year
-#Put into dataframe
-girls.completion %>% summarize(avg_by_year = mean(X1990, na.rm = TRUE))
-apply(GetCountryData("Algeria", "girls"), 2, mean, na.rm = TRUE)
-foo <- data.frame(colMeans(test[c(3:length(girls.completion))], na.rm=TRUE))
+#Girls and boys average completion rates; for trend line
+girls.avg <- girls.completion[c(3:length(girls.completion))] %>% 
+  summarize_all(funs(mean(., na.rm=TRUE)))
+boys.avg <- girls.completion[c(3:length(girls.completion))] %>% 
+  summarize_all(funs(mean(., na.rm=TRUE)))
 
 #Function: filter for country in dataset
 GetCountryData <- function(country, sex) {
@@ -26,9 +24,6 @@ GetCountryData <- function(country, sex) {
   }
   return(data %>% filter(Country == country))
 }
-
-#View(GetCountryData("Algeria", "both"))
-test <- GetCountryData("Algeria", "girls")
 
 # fit <- lm(price ~ carat, data = df)
 # plot_ly(df1, x = carat, y = price, mode = "markers") %>% 

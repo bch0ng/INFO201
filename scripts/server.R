@@ -44,5 +44,9 @@ shinyServer(function(input, output) {
     return(data.arrange)
   })
   
+  output$scatter.table <- renderTable({
+    #plot_ly(girls.completion, x = )
+  })
+  
 })
 
