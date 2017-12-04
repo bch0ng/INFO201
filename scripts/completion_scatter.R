@@ -30,3 +30,6 @@ GetCountryData <- function(country, sex) {
 #View(GetCountryData("Algeria", "both"))
 test <- GetCountryData("Algeria", "girls")
 
+# fit <- lm(price ~ carat, data = df)
+# plot_ly(df1, x = carat, y = price, mode = "markers") %>% 
+# add_trace(data = df, x = carat, y = fitted(fit), mode = "lines")
