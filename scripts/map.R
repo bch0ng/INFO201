@@ -14,7 +14,7 @@ source('scripts/education_completed_data_wrangling.R')
 # colnames(df2) <- c('country.name', 'country.code.3letters')
 # df <- left_join(df1, df2, by = 'country.name')
 # df <- filter(df, !is.na(country.code.3letters)) 
-df <- read.csv('data/abcd.csv')
+df <- read.csv('data/abcd.csv', stringsAsFactors = FALSE)
 
 # light grey boundaries
 l <- list(color = toRGB('grey'), width = 0.5)
