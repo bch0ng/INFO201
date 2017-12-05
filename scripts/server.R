@@ -4,6 +4,7 @@ library(dplyr)
 library(plotly)
 library(tidyr)
 source('education_completed_data_wrangling.R')
+source('map.R')
 
 # Reading in the data and formatting it to be more accessible
 both.sex <- FormatData(read.csv('../data/DisplayByIndicator.csv', stringsAsFactors = FALSE))
@@ -21,6 +22,9 @@ both.sex.pos.change <- both.sex %>%
                         arrange(desc(avg.change))
 
 shinyServer(function(input, output) {
+  output$plot <- renderPlotly({
+    ggplotly(p)
+  })
   
   
 })

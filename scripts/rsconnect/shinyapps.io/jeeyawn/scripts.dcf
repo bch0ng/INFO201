@@ -1,0 +1,13 @@
+name: scripts
+title: scripts
+username:
+account: jeeyawn
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 243538
+bundleId: 1112621
+url: https://jeeyawn.shinyapps.io/scripts/
+when: 1512339612.4318
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: completion_scatter.R|map1.R
