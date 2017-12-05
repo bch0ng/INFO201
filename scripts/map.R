@@ -4,16 +4,7 @@ library(dplyr)
 library(plotly)
 library(tidyr)
 library(xlsx)
-source('education_completed_data_wrangling.R')
-
-# read in & wrangle data 
-# df1 <- read.csv('scripts/abc.csv')
-# View(df1)
-# df2 <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
-# df2 <- select(df2, COUNTRY, CODE)
-# colnames(df2) <- c('country.name', 'country.code.3letters')
-# df <- left_join(df1, df2, by = 'country.name')
-# df <- filter(df, !is.na(country.code.3letters)) 
+ 
 df <- read.csv('../data/abcd.csv', stringsAsFactors = FALSE)
 
 # light grey boundaries
@@ -47,4 +38,3 @@ p
 
 # Sys.setenv("plotly_username"="jeeyawn")
 # Sys.setenv("plotly_api_key"="pk.eyJ1IjoiamVleWF3biIsImEiOiJjamFyYXUyYnIxOXJ4MzNwZnF1dGM4ejE4In0.4RjG8TJVaGmjhAG2We6MBA")
-
