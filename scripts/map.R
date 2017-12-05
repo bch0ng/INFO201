@@ -5,7 +5,8 @@ library(plotly)
 library(tidyr)
 library(xlsx)
  
-df <- read.csv('../data/abcd.csv', stringsAsFactors = FALSE)
+df <- read.csv('./../data/abcd.csv', stringsAsFactors = FALSE)
+View(df)
 
 # light grey boundaries
 l <- list(color = toRGB('grey'), width = 0.5)
@@ -24,7 +25,7 @@ median(df$avg.change)
 p <- plot_geo(df) %>%
   add_trace(
     z = ~avg.change, color = ~avg.change, colors = 'Blues',
-    text = ~country.name, locations = ~country.code.3letters, marker = list(line = l)
+    text = ~country.name, locations = ~country.three.letter.code, marker = list(line = l)
   ) %>%
   colorbar(title = 'Average change in primary educaiton rate 1990 - 2014', limits = c(-3, 5)) %>%
   layout(
