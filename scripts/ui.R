@@ -26,5 +26,15 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                             )
                    ),
                    tabPanel('Country Averages',
-                            tableOutput("scatter.table"))
+                            h4('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
+                            sidebarLayout(
+                              mainPanel(
+                                h3(id = 'mapHeader', 'Average Change in Primary School Completion, 1990-2014'),
+                                # tableOutput("scatter.table"),
+                                plotlyOutput('map')
+                              ),
+                              sidebarPanel(
+                              )
+                            )
+                   )
 ))
