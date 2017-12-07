@@ -13,8 +13,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('Project Introduction',
                             id = 'intro',
                             HTML(
-                              '<h1>Introduction</h1>
-                               <h4 class="subheader">By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi</h3>'
+                              '<h1>Introduction</h1>'
                             ),
                             mainPanel(
                               HTML(
@@ -55,7 +54,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               )
                             )
                    ),
-                   
                    # World Map
                    tabPanel('Country Averages Map',
                             mainPanel(
@@ -81,7 +79,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 the most effective.')
                             )
                    ),
-                   
                    # Scatter plot graph
                    tabPanel('Country Comparisons Graph',
                               mainPanel(
@@ -107,8 +104,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                             choices = dropdown.choices)
                               )
                    ),
-                   
-                   # Tablet of latest data
+                   # Table of the latest data
                    tabPanel('2013 Primary Completion Data',
                             mainPanel(
                               h3(class = 'header', 'Primary School Completion'),
@@ -136,5 +132,9 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               sliderInput("table.max", 'Primary Completed Rate', min = 30, 
                                           max = 115, value = c(30,115))
                             )
-                          )
+                          ),
+                   tags$footer(
+                     HTML('<p class="subheader">INFO201 AF 5<br />
+                            Patricia Au | Brandon Chong | Jisoo Kim | Satvik Shukla | Jion Yi</p>')
+                   )
 ))
