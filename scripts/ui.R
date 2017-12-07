@@ -7,6 +7,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    fluid = TRUE,
                    theme = 'styles.css',
                    tabPanel('About',
+                            id = 'intro',
                             h1(id = 'appTitle', 'Introduction'),
                             h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
                             mainPanel(
@@ -23,21 +24,13 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 United Nation to create and implement policies in global education. In addition, our project will allow states 
                                 with inadequate resources to analyze and learn about the global trends as well as those within their own country.'),
                               br(),
-                              h4('Technical Description'),
-                              p('The format of our final product will be a Shiny application that changes dynamically with user input. 
-                                In addition to the comma-separated values (CSV) data needed to conduct our research and create visualizations, 
-                                the user will be able to adjust values to filter certain parts of the data (ie. viewing by country, viewing by 
-                                factor, etc.)To view more specific trends, 
-                                our data will be filtered and grouped by data rows. In addition, we will join our datasets 
-                                to compare current and past data in country trends. External libraries, such as Dplyr and Shiny, will enable us 
-                                to create a dynamic web page with interactive graphics.')
-                              ),
                               h4('Sources'),
                               a('Millenium Development Goals: Education', href = 'http://databank.worldbank.org/data/reports.aspx?source=millennium-development-goals'),
                               br(),
                               a('Millenium Development Goals Indicators', href = 'http://mdgs.un.org/unsd/mdg/Data.aspx'),
                               br(),
                               a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
+                            )
                    ),
                    
                    tabPanel('Country Averages Map',
@@ -51,6 +44,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               # tableOutput("scatter.table"),
                             ),
                             sidebarPanel(
+                              id = 'tableSidebar',
                               radioButtons('map.sex', 'Sex',
                                            choices = list("Both" = 'both.sex', "Male" = 'boys', "Female" = 'girls'), 
                                            selected = 'both.sex')
@@ -91,7 +85,5 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                             max = 115, value = c(30,115))
                               )
                             )
-                   ),
-                   
-                   tags$div(id = 'footer')
+                   )
 ))

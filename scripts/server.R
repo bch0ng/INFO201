@@ -57,6 +57,7 @@ shinyServer(function(input, output, session) {
     return(data.arrange)
   })
   
+  
   # render map
   # output$map <- renderPlotly({
   #   ggplotly(p)
@@ -75,24 +76,7 @@ shinyServer(function(input, output, session) {
       print.sex <- paste0(toupper(substr(input$map.sex, 1, 1)), substr(input$map.sex, 2, nchar(input$map.sex)))
       data.range <- c(seq(-3, 8, by = 1), 30)
     }
-    map <- hcmap("custom/world-robinson-lowres", data = get(input$map.sex),
-                   name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "Country"),
-                   borderColor = "transparent") %>%
-      hc_colorAxis(dataClasses = color_classes(data.range)) %>% 
-      hc_legend(layout = "vertical", align = "right",
-                floating = FALSE, valueDecimals = 1, valueSuffix = "%") %>%
-      hc_mapNavigation(enabled = TRUE, 
-                       enableMouseWheelZoom = TRUE, 
-                       mouseWheelSensitivity = 1.05,
-                       enableDoubleClickZoomTo = TRUE) %>% 
-      hc_title(text = paste0('Average Change in Primary Education Rate for ', print.sex, ' 1990-2014')) %>% 
-      hc_subtitle(align = 'center',
-                  useHTML = TRUE,
-                  text = '<strong>Note<sub>1</sub>:</strong> Some of the countries, whose data are not available, are greyed out on the map.<br />
-                          <strong>Note<sub>2</sub>:</strong> Click on the legend to show/hide corresponding countries.<br />
-                          <strong>Note<sub>3</sub>:</strong> Please be patient when loading different gender data.'
-                  )
-      return(map)
+    return(CreateHCMap(get(input$map.sex), print.sex, data.range))
   })
   # render table
   output$scatter.table <- renderPlotly({
