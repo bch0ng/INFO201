@@ -30,6 +30,7 @@ GetAllCountriesAvg <- function(sex) {
     summarize_all(funs(mean(., na.rm=TRUE)))
   all.data <- as.data.frame(t(all.data))
   all.data <- data.frame(year = row.names(all.data), all.data, row.names = NULL)
+  all.data$year <- gsub('X', '', all.data$year)
   return(all.data)
 }
 
@@ -47,6 +48,7 @@ GetCountryData <- function(country, sex) {
     select(-CountryCode, -Country)
   trans <- as.data.frame(t(country.data))
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
+  country.data$year <- gsub('X', '', country.data$year)
   return(country.data)
 }
 
