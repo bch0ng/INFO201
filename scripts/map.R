@@ -32,8 +32,7 @@ CreateHCMap <- function(df, print.sex, data.range) {
     hc_subtitle(align = 'center',
                 useHTML = TRUE,
                 style = list(color = '#466551'),
-                text = '<strong>Note<sub>1</sub>:</strong> Some of the countries, whose data are not available, are whited out on the map.<br />
-                <strong>Note<sub>2</sub>:</strong> Please be patient when loading different gender data.'
+                text = '<strong>Note:</strong> Some of the countries, whose data are not available, are whited out on the map.<br />'
     )
   return(map)
 }

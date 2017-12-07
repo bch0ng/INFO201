@@ -65,6 +65,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                             ),
                             sidebarPanel(
                               class = 'sidebar',
+                              HTML('<strong>Note:</strong> Please be patient when loading different gender data.<br /><br />'),
                               radioButtons('map.sex', 'Sex',
                                            choices = list("Both" = 'both.sex',
                                                           "Male" = 'boys', 
