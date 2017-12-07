@@ -1,10 +1,6 @@
 library(shiny)
 library(plotly)
 
-# require(devtools)
-# install_github('rCharts', 'ramnathv')
-
-
 shinyUI(navbarPage('Millenium Development Goals: Education',
                    # tags$head(tags$script(src="script.js")),
                    fluid = TRUE,
@@ -43,14 +39,12 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
                    ),
                    
-                   tabPanel('Country Averages',
+                   tabPanel('Country Averages Map',
                             mainPanel(
                               id = 'map',
 
                               tags$div(id = 'loader'),
                               h3('Loading...'),
-                              # strong('Note:'),
-                              # p('Some of the countries, whose data are not available, are greyed in the map.'),
                               
                               highchartOutput('map')
                               # tableOutput("scatter.table"),
