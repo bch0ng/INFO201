@@ -1,6 +1,7 @@
 library(dplyr)
 library(plotly)
-setwd("~/Desktop/INFO201/INFO201")
+library(shiny)
+
 source("./scripts/education_completed_data_wrangling.R")
 
 girls.completion <- FormatData(read.csv('./data/Completion_girls.csv', stringsAsFactors = FALSE))
@@ -54,26 +55,13 @@ all.data <- GetAllCountriesAvg("girls")
 
 Scatter <- function(country, sex) {
   d <- GetCountryData(country, sex)
-
   all.data <- GetAllCountriesAvg(sex)
-# scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter") %>% 
   scatterplot <- plot_ly() %>% 
     add_trace(data=d, x = ~d$year, y = ~d$V1, type="scatter", mode="markers") %>% 
     layout(title = paste(country, "Average per Year"),
-           xaxis = list(title = 'Year',
-                        zeroline = TRUE
-           ),
-           yaxis = list(title = 'Average'
-           ),
+           xaxis = list(title = 'Year', zeroline = TRUE),
+           yaxis = list(title = 'Average'),
            showlegend = FALSE) %>% 
     add_trace(data=all.data, x = ~all.data$year, y = ~all.data$V1, type="scatter", mode = "lines")
-# scatterplot %>% add_trace(x = all.data$year, y = all.data$V1, mode = "line")
   return(scatterplot)
 }
-
-d <- Scatter("Algeria", "girls")
-
-
-# fit <- lm(price ~ carat, data = df)
-# plot_ly(df1, x = carat, y = price, mode = "markers") %>% 
-# add_trace(data = df, x = carat, y = fitted(fit), mode = "lines")
