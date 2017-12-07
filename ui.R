@@ -7,58 +7,96 @@ source('scripts/map.R')
 source('scripts/completion_scatter.R')
 
 shinyUI(navbarPage('Millenium Development Goals: Education',
-                   id = 'navbar',
                    fluid = TRUE,
                    theme = 'styles.css',
-                   tabPanel('About',
+                   # Introduction to our Project
+                   tabPanel('Project Introduction',
                             id = 'intro',
-                            h1(id = 'appTitle', 'Introduction'),
-                            h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
+                            HTML(
+                              '<h1>Introduction</h1>
+                               <h4 class="subheader">By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi</h3>'
+                            ),
                             mainPanel(
-                              h4('Project Description'),
-                              p('The aim of this project is to visualize global education trends and its various factors. 
-                                By looking at our finished project, our audience will be able to answer the following questions:'),
-                              strong('(1) How have education rates changed over the years in the countries we are looking at?'), 
-                              br(),
-                              strong('(2) What are the education rates of countries by males, females, and both in 2013?'),
-                              br(),
-                              p('Our target audience includes the United Nations, its member states, non-governmental orgnanizations,
-                                and its private investors.Our project will be available to the public, which allows individuals interested 
-                                in this topic to learn more about global education trends. We hope that our visualizations will drive the 
-                                United Nation to create and implement policies in global education. In addition, our project will allow states 
-                                with inadequate resources to analyze and learn about the global trends as well as those within their own country.'),
-                              br(),
-                              h4('Sources'),
-                              a('Millenium Development Goals: Education', href = 'http://databank.worldbank.org/data/reports.aspx?source=millennium-development-goals'),
-                              br(),
-                              a('Millenium Development Goals Indicators', href = 'http://mdgs.un.org/unsd/mdg/Data.aspx'),
-                              br(),
-                              a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
+                              HTML(
+                                 '<h4>Project Description</h4>
+                                  <p>
+                                    The aim of this project is to visualize global education trends and its various factors. 
+                                    By looking at our finished project, our audience will be able to answer the following questions:
+                                  </p>
+
+                                  <strong>
+                                    <ol>
+                                      <li>How have primary school completion rates changed over the past 20 years globally?</li>
+                                      <li>What are the primary school completion rates of countries by male, female, and both up to 2014?</li>
+                                    </ol>
+                                  </strong>
+
+                                  <p>
+                                    Our main target audience includes the United Nations, its member states, non-governmental orgnanizations,
+                                    and its private investors.Our project will be available to the public, which allows individuals interested 
+                                    in this topic to learn more about global education trends. We hope that our presentation will assist the 
+                                    United Nations in helping critical countries educational support plans so that we may achieve our Millenium
+                                    Development Goal of universal primary education. In addition, our project will allow countries
+                                    with inadequate resources to analyze and learn about the global trends as well as their own country\'s trends.
+                                  </p>
+                                  <br />
+                                  <h4>Sources</h4>
+                                  <ul>
+                                    <li><a href="http://databank.worldbank.org/data/reports.aspx?source=millennium-development-goals">
+                                      Millenium Development Goals: Education
+                                    </a></li>
+                                    <li><a href="http://mdgs.un.org/unsd/mdg/Data.aspx">
+                                      Millenium Development Goals Indicators
+                                    </a></li>
+                                    <li><a href="http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics">
+                                      World Bank: Education Statistics - All Indicators
+                                    </a></li>
+                                  </ul>'
+                              )
                             )
                    ),
                    
+                   # World Map
                    tabPanel('Country Averages Map',
                             mainPanel(
                               id = 'map',
-
-                              tags$div(id = 'loader'),
+                              tags$div(class = 'loader'),
                               h3('Loading...'),
-                              
                               highchartOutput('map')
-                              # tableOutput("scatter.table"),
                             ),
                             sidebarPanel(
                               class = 'sidebar',
                               radioButtons('map.sex', 'Sex',
-                                           choices = list("Both" = 'both.sex', "Male" = 'boys', "Female" = 'girls'), 
+                                           choices = list("Both" = 'both.sex',
+                                                          "Male" = 'boys', 
+                                                          "Female" = 'girls'), 
                                            selected = 'both.sex')
+                            ),
+                            sidebarPanel(
+                              class = 'sidebar description',
+                              h4('Description'),
+                              p('This interactive map displays the average change in primary school
+                                completion from 1990 to 2014. By viewing this graph, we can identify
+                                critical countries and regions where educational assistance may be
+                                the most effective.')
                             )
                    ),
-                   tabPanel('Country Comparisons',
-                            sidebarLayout(
+                   
+                   # Scatter plot graph
+                   tabPanel('Country Comparisons Graph',
                               mainPanel(
-                                h3('Comparing Country Completion Rates Against World Average'),
-                                plotlyOutput('scatter.table')
+                                # Description of scatter plot
+                                h3(id = 'tableHeader', 'Comparing Country Completion Rates Against the World Average Rate'),
+                                HTML('<p><strong>Note:</strong> Not all countries reported their completion rates.</p>'),
+                                tags$div(class = 'loader'),
+                                plotlyOutput('scatter.plot')
+                              ),
+                              sidebarPanel(
+                                class = 'sidebar',
+                                h4('Description'),
+                                p('This scatter plot shows the relation between the students\' gender and
+                                    primary completion rate for each country, while also comparing it to the
+                                    world average.')
                               ),
                               sidebarPanel(
                                 class = 'sidebar',
@@ -68,29 +106,35 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 selectInput("scatter.country", 'Country', 
                                             choices = dropdown.choices)
                               )
-                            )
                    ),
                    
-                   tabPanel('Table',
-                            sidebarLayout(
-                              mainPanel(
-                                h3(id = 'tableHeader', 'Primary School Completion'),
-                                tableOutput('table')
-                              ),
-                              sidebarPanel(
-                                class = 'sidebar',
-                                h5('This table displays the percentage completion of primary school per country
-                                   in 2013.'),
-                                # Table Widgets
-                                radioButtons('sex', 'Sex',
-                                             choices = list("Both" = 1, "Male" = 2, "Female" = 3), 
-                                             selected = 1),
-                                radioButtons('arrange.by', 'Arrange By',
-                                             choices = list("Descending" = 1, "Ascending" = 2), 
-                                             selected = 1),
-                                sliderInput("table.max", 'Primary Completed Rate', min = 30, 
-                                            max = 115, value = c(30,115))
-                              )
+                   # Tablet of latest data
+                   tabPanel('2013 Primary Completion Data',
+                            mainPanel(
+                              h3(class = 'header', 'Primary School Completion'),
+                              tableOutput('table')
+                            ),
+                            sidebarPanel(
+                              class = 'sidebar',
+                              h4('Description'),
+                              p('This table displays the latest primary school completion
+                                percentage. By viewing this table, we can identify
+                                critical countries and regions where completion is below 50%
+                                that would benefit the most from additional educational support,
+                                so that we will be able to reach our Millenium Development Goal of
+                                universal primary education.')
+                            ),
+                            sidebarPanel(
+                              class = 'sidebar',
+                              # Table Widgets
+                              radioButtons('sex', 'Sex',
+                                           choices = list("Both" = 1, "Male" = 2, "Female" = 3), 
+                                           selected = 1),
+                              radioButtons('arrange.by', 'Arrange By',
+                                           choices = list("Descending" = 1, "Ascending" = 2), 
+                                           selected = 1),
+                              sliderInput("table.max", 'Primary Completed Rate', min = 30, 
+                                          max = 115, value = c(30,115))
                             )
-                   )
+                          )
 ))

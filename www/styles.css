@@ -1,52 +1,77 @@
-body {
-  color: #466551;
+:root {
+  --main-color: #466551;
+  --sidebar-color: #c7d0ca;
+  --navbar-text-color: #FFF;
+  --navbar-color: #90a296;
 }
-
+body {
+  background-color: #ecefed;
+  color: var(--main-color);
+}
+.subheader {
+  font-size: 16pt;
+}
 .sidebar {
-  color: #466551;
-  background-color: #DCE8BA;
+  color: var(--main-color);
+  background-color: var(--sidebar-color);
   margin: 0 auto !important;
-  margin-top: 50px !important;
+  margin-top: 25px !important;
   right: 0;
 }
-
-.header, #tableHeader {
+.description {
+  width: 500px;
+}
+.header {
   text-align: center;
+}
+
+div.col-sm-8 a {
+  color: var(--navbar-color);
+}
+div.col-sm-8 a:hover {
+  color: var(--main-color);
+  text-decoration: none;
 }
 
 #map {
   width: 100%;
   height: 500px;
   text-align: center;
-}
-span.navbar-brand, nav a {
-  color: #FFF !important;
-}
-.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-   background-color: #466551;
+  position: relative;
 }
 span.navbar-brand {
-  position: absolute;
+  font-size: 18pt;
+}
+span.navbar-brand, nav a {
+  color: var(--navbar-text-color) !important;
+}
+span.navbar-brand, nav li a:hover {
+  color: var(--sidebar-color) !important;
+}
+li.active a {
+  color: #151e18 !important;
+}
+.navbar-default .navbar-nav>.active>a, 
+      .navbar-default .navbar-nav>.active>a:focus, 
+      .navbar-default .navbar-nav>.active>a:hover {
+   background-color: var(--navbar-color);
 }
 nav.navbar.navbar-default.navbar-static-top {
   margin-bottom: 0;
   width: 100%;
-  background-color: #000;
+  background-color: var(--main-color);
 }
 nav.navbar.navbar-default.navbar-static-top ul {
   margin: 0 auto;
   float: right;
 }
-nav.navbar.navbar-default.navbar-static-top li {
 
-}
-
-#loader {
+.loader {
   position: absolute;
   top: 50%;
   left: 48%;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #FFF; /* Light grey */
+  border-top: 16px solid var(--navbar-color); /* Blue */
   border-radius: 50%;
   width: 25px;
   height: 25px;

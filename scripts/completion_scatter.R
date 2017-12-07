@@ -1,8 +1,6 @@
+# Sets up libraries and sources
 library(dplyr)
 library(plotly)
-library(shiny)
-
-
 source("scripts/education_completed_data_wrangling.R")
 
 #Girls completion rate data for all countries
@@ -53,13 +51,13 @@ GetCountryData <- function(country, sex) {
   return(country.data)
 }
 
-#Create scatterplot comparing country rate against the worldwide average
+#Creates a scatter plot comparing country rate against the worldwide average
 Scatter <- function(country, sex) {
   country.data <- GetCountryData(country, sex) #Chosen country's data
   all.data <- GetAllCountriesAvg(sex) #Data of all countries
   
   #Plot graph with only average line
-  scatterplot <- plot_ly() %>% 
+  scatter.plot <- plot_ly() %>% 
     layout(title = paste(country, "Completion Rate vs. World Average Rate (1990 - 2014)"),
            xaxis = list(title = 'Year', zeroline = TRUE, tickangle = -45),
            yaxis = list(title = 'Rate'),
@@ -70,13 +68,13 @@ Scatter <- function(country, sex) {
               text = ~paste(year, "Worldwide Average: ", format(round(V1, 2), nsmall = 2)))
   if (nrow(country.data) > 0) {
     #Only adds country's value if there are some values (not all null)
-    scatterplot <- scatterplot %>% add_trace(data=country.data, x = ~country.data$year, 
+    scatter.plot <- scatter.plot %>% add_trace(data=country.data, x = ~country.data$year, 
                                              y = ~country.data$V1, type="scatter", 
                                              mode="markers",
                                              hoverinfo = 'text',
                                              text = ~paste(year, " ", country, " Rate: ", V1,
                                                            sep = ""))
   }
-  return(scatterplot)
+  return(scatter.plot)
 }
 

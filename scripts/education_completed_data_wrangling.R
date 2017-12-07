@@ -38,13 +38,8 @@ CalculateAvgChange <- function(data.transpose) {
   return(avg.change)
 }
 
-RemoveNA <- function(df1) {
-	df2 <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
- 	df2 <- select(df2, COUNTRY, CODE)
- 	colnames(df2) <- c('country.name', 'country.code.3letters')
- 	df <- left_join(df1, df2, by = 'country.name')
- 	df <- filter(df, !is.na(country.code.3letters)) 
-	output.data <- df[!(is.na(df$avg.change) | df$avg.change==""), ]
-	colnames(output.data) <- c("country.code", "country.name", c(1990:2014), "avg.change", "country.three.letter.code")
-	return(output.data)
+RemoveNA <- function(data) {
+  data <- data %>% 
+    filter(!is.na(avg.change))
+  return(data)
 }
