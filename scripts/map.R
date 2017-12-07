@@ -3,9 +3,10 @@ library(shiny)
 library(dplyr)
 library(plotly)
 library(tidyr)
+library(highcharter)
 
 # read the data of average change in education rates 
-df <- read.csv('./../data/abcd.csv', stringsAsFactors = FALSE)
+df <- read.csv('data/abcd.csv', stringsAsFactors = FALSE)
 
 # light grey boundaries
 l <- list(color = toRGB('grey'), width = 0.5)

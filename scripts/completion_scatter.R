@@ -3,11 +3,11 @@ library(plotly)
 library(shiny)
 
 
-source("education_completed_data_wrangling.R")
+source("scripts/education_completed_data_wrangling.R")
 
-girls.completion <- FormatData(read.csv('../data/Completion_girls.csv', stringsAsFactors = FALSE))
-boys.completion <- FormatData(read.csv('../data/Completion_boys.csv', stringsAsFactors = FALSE))
-both.completion <- FormatData(read.csv('../data/Completion_both.csv', stringsAsFactors = FALSE))
+girls.completion <- FormatData(read.csv('data/Completion_girls.csv', stringsAsFactors = FALSE))
+boys.completion <- FormatData(read.csv('data/Completion_boys.csv', stringsAsFactors = FALSE))
+both.completion <- FormatData(read.csv('data/Completion_both.csv', stringsAsFactors = FALSE))
 
 #For ui.R dropdown
 dropdown.choices <- both.completion$Country
