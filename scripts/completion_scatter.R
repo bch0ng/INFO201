@@ -1,6 +1,6 @@
 library(dplyr)
 library(plotly)
-
+setwd("~/Desktop/INFO201/INFO201")
 source("./scripts/education_completed_data_wrangling.R")
 
 girls.completion <- FormatData(read.csv('./data/Completion_girls.csv', stringsAsFactors = FALSE))
@@ -25,30 +25,19 @@ GetCountryData <- function(country, sex) {
   } else {
     data <- both.completion
   }
-  # return(data %>% filter(Country == country)) #returns data as single row
-  
   #returns data as two columns
   country.data <- data %>% filter(Country == country) %>% 
     select(-CountryCode, -Country)
   trans <- as.data.frame(t(country.data))
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
-  
-  #country.data <- as.data.frame(t(country.data))
   return(country.data)
 }
-d <- GetCountryData("Algeria", "girls")
+#d <- GetCountryData("Al", "girls")
 
 
 Scatter <- function(country, sex) {
-  
-  choice <- CountryData(country, sex)
-  choice <- choice[c(3:27),]
-  scatterplot <- plot_ly(choice, type="scatter", x = ~choice$year, y = ~choice$V1, mode = "markers") %>% 
-
-  #choice <- CountryData(country, sex)
-  #choice <- choice[c(3:27),]
   d <- GetCountryData(country, sex)
-  scatterplot <- plot_ly(d, type="scatter", x = ~d$year, y = ~d$V1) %>% 
+  scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter", mode="lines") %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
@@ -58,12 +47,8 @@ Scatter <- function(country, sex) {
   return(scatterplot)
 }
 
-# 
-# CountryData <- function(country, sex) {
-#   trans <- as.data.frame(t(GetCountryData(country, sex)))
-#   into.column <- data.frame(year = row.names(trans), trans, row.names = NULL)
-#   return(into.column)
-# }
+d <- Scatter("Algeria", "girls")
+
 
 # fit <- lm(price ~ carat, data = df)
 # plot_ly(df1, x = carat, y = price, mode = "markers") %>% 
