@@ -15,10 +15,18 @@ both.sex <- FormatData(read.csv('../data/DisplayByIndicator.csv', stringsAsFacto
 boys <- FormatData(read.csv('../data/Completion_boys.csv', stringsAsFactors = FALSE))
 girls <- FormatData(read.csv('../data/Completion_girls.csv', stringsAsFactors = FALSE))
 
+boys$avg.change <- CalculateAvgChange(TransposeData(boys))
+boys <- boys %>% 
+          filter(!is.na(avg.change))
+girls$avg.change <- CalculateAvgChange(TransposeData(girls))
+girls <- girls %>% 
+          filter(!is.na(avg.change))
 # Transposing the data
 both.sex.transpose <- TransposeData(both.sex)
 avg.change <- CalculateAvgChange(both.sex.transpose)
 both.sex$avg.change <- avg.change
+both.sex <- both.sex %>% 
+              filter(!is.na(avg.change))
 #both.sex.no.na <- RemoveNA(both.sex)
 # Arranged for most positive/negative change to be the top-most value
 # both.sex.neg.change <- both.sex %>%
@@ -29,7 +37,7 @@ both.sex$avg.change <- avg.change
 #                         arrange(desc(avg.change))
 
 # Primary completion in 2013
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
   # Table for primary completion rate in 2013
   output$table <- renderTable({
     data <- both.sex
@@ -55,20 +63,35 @@ shinyServer(function(input, output) {
   # })
   
   output$map <- renderHighchart2({
-    map <- hcmap("custom/world-robinson-lowres", data = df,
-                   name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "country.name"),
+    print.sex <- ''
+    data.range <- vector()
+    if (input$map.sex == 'both.sex') {
+      print.sex <- 'Boys and Girls'
+      data.range <- c(seq(-3, 5, by = 1), 30)
+    } else if (input$map.sex == 'boys') {
+      print.sex <- paste0(toupper(substr(input$map.sex, 1, 1)), substr(input$map.sex, 2, nchar(input$map.sex)))
+      data.range <- c(seq(-9, 6, by = 1), 25)
+    } else {
+      print.sex <- paste0(toupper(substr(input$map.sex, 1, 1)), substr(input$map.sex, 2, nchar(input$map.sex)))
+      data.range <- c(seq(-3, 8, by = 1), 30)
+    }
+    map <- hcmap("custom/world-robinson-lowres", data = get(input$map.sex),
+                   name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "Country"),
                    borderColor = "transparent") %>%
-      hc_colorAxis(dataClasses = color_classes(c(seq(-3, 5, by = 1), 30))) %>% 
+      hc_colorAxis(dataClasses = color_classes(data.range)) %>% 
       hc_legend(layout = "vertical", align = "right",
-                floating = TRUE, valueDecimals = 1, valueSuffix = "%") %>%
+                floating = FALSE, valueDecimals = 1, valueSuffix = "%") %>%
       hc_mapNavigation(enabled = TRUE, 
                        enableMouseWheelZoom = TRUE, 
                        mouseWheelSensitivity = 1.05,
                        enableDoubleClickZoomTo = TRUE) %>% 
-      hc_title(text = 'Average Change in Primary Education Rate 1990-2014') %>% 
+      hc_title(text = paste0('Average Change in Primary Education Rate for ', print.sex, ' 1990-2014')) %>% 
       hc_subtitle(align = 'center',
                   useHTML = TRUE,
-                  text = '<strong>Note:</strong> Some of the countries, whose data are not available, are greyed out on the map')
+                  text = '<strong>Note<sub>1</sub>:</strong> Some of the countries, whose data are not available, are greyed out on the map.<br />
+                          <strong>Note<sub>2</sub>:</strong> Click on the legend to show/hide corresponding countries.<br />
+                          <strong>Note<sub>3</sub>:</strong> Please be patient when loading different gender data.'
+                  )
       return(map)
   })
   # render table

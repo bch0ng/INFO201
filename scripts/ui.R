@@ -1,16 +1,16 @@
 library(shiny)
 library(plotly)
-library(rCharts)
 
 # require(devtools)
 # install_github('rCharts', 'ramnathv')
 
 
 shinyUI(navbarPage('Millenium Development Goals: Education',
+                   # tags$head(tags$script(src="script.js")),
                    fluid = TRUE,
                    theme = 'styles.css',
                    tabPanel('About',
-                            h1(id = 'appTitle', 'Millenium Development Goals: Education'),
+                            h1(id = 'appTitle', 'Introduction'),
                             h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
                             mainPanel(
                               h4('Project Description'),
@@ -18,7 +18,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 By looking at our finished project, our audience will be able to answer the following questions:'),
                               strong('(1) How have education rates changed over the years in the countries we are looking at?'), 
                               br(),
-                              strong('(2) What are the education rates of countries by males, females, and both in 2014?'),
+                              strong('(2) What are the education rates of countries by males, females, and both in 2013?'),
                               br(),
                               p('Our target audience includes the United Nations, its member states, non-governmental orgnanizations,
                                 and its private investors.Our project will be available to the public, which allows individuals interested 
@@ -46,16 +46,19 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('Country Averages',
                             mainPanel(
                               id = 'map',
-<<<<<<< HEAD
 
-=======
-                              tags$div(class = 'loader'),
->>>>>>> Adds loading animation
+                              tags$div(id = 'loader'),
                               h3('Loading...'),
                               # strong('Note:'),
                               # p('Some of the countries, whose data are not available, are greyed in the map.'),
+                              
                               highchartOutput('map')
                               # tableOutput("scatter.table"),
+                            ),
+                            sidebarPanel(
+                              radioButtons('map.sex', 'Sex',
+                                           choices = list("Both" = 'both.sex', "Male" = 'boys', "Female" = 'girls'), 
+                                           selected = 'both.sex')
                             )
                    ),
                    tabPanel('Country Comparisons',
