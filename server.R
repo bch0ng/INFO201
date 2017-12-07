@@ -65,6 +65,9 @@ shinyServer(function(input, output) {
     if (input$arrange.by == 1)
       data.arrange <- data.arrange %>% 
       arrange(desc(X2013))
+    else if(input$arrange.by == 3) {
+      data.arrange <- data.arrange %>% arrange(Country)
+    }
     colnames(data.arrange)[2] <- 'Primary School Completion Rate in 2013'
     return(data.arrange)
   })
