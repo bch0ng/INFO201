@@ -10,6 +10,7 @@ both.completion <- FormatData(read.csv('./data/Completion_both.csv', stringsAsFa
 #Girls and boys average completion rates; for trend line
 girls.avg <- girls.completion[c(3:length(girls.completion))] %>% 
   summarize_all(funs(mean(., na.rm=TRUE)))
+girls.avg = as.data.frame(t(girls.avg))
 boys.avg <- boys.completion[c(3:length(boys.completion))] %>% 
   summarize_all(funs(mean(., na.rm=TRUE)))
 both.avg <- both.completion[c(3:length(both.completion))] %>% 
@@ -25,41 +26,31 @@ GetCountryData <- function(country, sex) {
   } else {
     data <- both.completion
   }
-  # return(data %>% filter(Country == country)) #returns data as single row
-  
   #returns data as two columns
   country.data <- data %>% filter(Country == country) %>% 
     select(-CountryCode, -Country)
   trans <- as.data.frame(t(country.data))
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
-  
-  #country.data <- as.data.frame(t(country.data))
   return(country.data)
 }
 d <- GetCountryData("Algeria", "girls")
 
 
 Scatter <- function(country, sex) {
-  #choice <- CountryData(country, sex)
-  #choice <- choice[c(3:27),]
   d <- GetCountryData(country, sex)
-  scatterplot <- plot_ly(d, type="scatter", x = ~d$year, y = ~d$V1) %>% 
+  scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter") %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
            ),
            yaxis = list(title = 'Average'
-           ))
+           )) %>%
+   
   return(scatterplot)
 }
 
 d <- Scatter("Algeria", "girls")
-# 
-# CountryData <- function(country, sex) {
-#   trans <- as.data.frame(t(GetCountryData(country, sex)))
-#   into.column <- data.frame(year = row.names(trans), trans, row.names = NULL)
-#   return(into.column)
-# }
+
 
 # fit <- lm(price ~ carat, data = df)
 # plot_ly(df1, x = carat, y = price, mode = "markers") %>% 
