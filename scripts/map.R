@@ -24,10 +24,10 @@ median(df$avg.change)
 
 p <- plot_geo(df) %>%
   add_trace(
-    z = ~avg.change, color = ~avg.change, colors = 'Blues',
+    z = ~avg.change, color = ~avg.change, colors = 'Purples',
     text = ~country.name, locations = ~country.three.letter.code, marker = list(line = l)
   ) %>%
-  colorbar(title = 'Average change in primary educaiton rate 1990 - 2014', limits = c(-3, 5)) %>%
+  colorbar(title = 'Average change in primary education rate 1990 - 2014', limits = c(-3, 5)) %>%
   layout(
     title = 'Average Change of Education Rate Around the World from 1990 to 2014',
     geo = g
