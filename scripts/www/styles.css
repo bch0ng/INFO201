@@ -7,6 +7,6 @@
 .header, #tableHeader {
   text-align: center;
 }
-#mapSidePanel {
+.hideSidePanel {
   display: none;
 }

@@ -6,9 +6,11 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    theme = 'styles.css',
                    tabPanel('About',
                      h3('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                     sidebarPanel(),
                      mainPanel(
-                      textOutput('about')
+                       textOutput('about')
+                     ),
+                     sidebarPanel(
+                       class = 'hideSidePanel'
                      )
                    ),
                    tabPanel('Table',
@@ -39,7 +41,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 plotlyOutput('map')
                               ),
                               sidebarPanel(
-                                id = 'mapSidePanel'
+                                class = 'hideSidePanel'
                               )
                             )
                    )
