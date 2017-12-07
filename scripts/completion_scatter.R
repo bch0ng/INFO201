@@ -33,7 +33,7 @@ GetAllCountriesAvg <- function(sex) {
   return(all.data)
 }
 
-#Function: filter for country in dataset
+#Filter for country in dataset
 GetCountryData <- function(country, sex) {
   data;
   if (sex == "girls") {
@@ -43,7 +43,6 @@ GetCountryData <- function(country, sex) {
   } else {
     data <- both.completion
   }
-  #returns data as two columns
   country.data <- data %>% filter(Country == country) %>% 
     select(-CountryCode, -Country)
   trans <- as.data.frame(t(country.data))
@@ -52,6 +51,7 @@ GetCountryData <- function(country, sex) {
 }
 
 all.data <- GetAllCountriesAvg("girls")
+dropdown.choices <- both.completion$Country
 
 Scatter <- function(country, sex) {
   d <- GetCountryData(country, sex)
@@ -65,3 +65,5 @@ Scatter <- function(country, sex) {
     add_trace(data=all.data, x = ~all.data$year, y = ~all.data$V1, type="scatter", mode = "lines")
   return(scatterplot)
 }
+
+typeof(Scatter("Algeria", "girls"))
