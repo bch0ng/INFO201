@@ -51,6 +51,9 @@ shinyServer(function(input, output) {
   })
   
   # render table
-  output$scatter.table <- renderTable({
+  output$scatter.table <- renderPlotly({
+    sex <- input$scatter.sex
+    country <- input$scatter.country
+    return(Scatter(country, sex))
   })
 })

@@ -51,6 +51,21 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               # tableOutput("scatter.table"),
                             )
                    ),
+                   tabPanel('Country Comparisons',
+                            sidebarLayout(
+                              mainPanel(
+                                h3('Comparing Country Completion Rates Against World Average'),
+                                plotlyOutput('scatter.table')
+                              ),
+                              sidebarPanel(
+                                radioButtons("scatter.sex", 'Sex',
+                                             choices = list("Female" = "girls", "Male" = "boys",
+                                                            "Both" = "both"),selected = "girls"),
+                                selectInput("scatter.country", 'Country', 
+                                            choices = dropdown.choices)
+                              )
+                            )
+                   ),
                    
                    tabPanel('Table',
                             sidebarLayout(
