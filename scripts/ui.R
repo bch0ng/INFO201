@@ -32,14 +32,13 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 to compare current and past data in country trends. External libraries, such as Dplyr and Shiny, will enable us 
                                 to create a dynamic web page with interactive graphics.')
                               ),
-                            h3('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                            mainPanel(
-                              textOutput('about')
-                            ),
-                            sidebarPanel(
-                              class = 'hideSidePanel'
-                            )
-                              ),
+                              h4('Sources'),
+                              a('Millenium Development Goals: Education', href = 'http://databank.worldbank.org/data/reports.aspx?source=millennium-development-goals'),
+                              br(),
+                              a('Millenium Development Goals Indicators', href = 'http://mdgs.un.org/unsd/mdg/Data.aspx'),
+                              br(),
+                              a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
+                   ),
                    tabPanel('Table',
                             sidebarLayout(
                               mainPanel(
