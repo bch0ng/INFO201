@@ -3,17 +3,20 @@ library(dplyr)
 library(plotly)
 source("scripts/education_completed_data_wrangling.R")
 
-#Girls completion rate data for all countries
+# Girls completion rate data for all countries
 girls.completion <- FormatData(read.csv('data/Completion_girls.csv', stringsAsFactors = FALSE))
 #Boys completion rate data for all countries
 boys.completion <- FormatData(read.csv('data/Completion_boys.csv', stringsAsFactors = FALSE))
 #Girls + boys completion rate data for all countries
 both.completion <- FormatData(read.csv('data/Completion_both.csv', stringsAsFactors = FALSE))
 
-#For ui.R dropdown
+# For ui.R dropdown
 dropdown.choices <- both.completion$Country
 
-#Returns dataset for world (all countries) average by sex 
+#' Takes in a sex and returns the dataset for world (all countries) average by sex.
+#' 
+#' @param sex    Sex of 'boys', 'girls', or 'both'
+#' @return       The dataset for all countries' primary completion average by sex
 GetAllCountriesAvg <- function(sex) {
   if (sex == "girls") {
     data <- girls.completion
@@ -31,7 +34,11 @@ GetAllCountriesAvg <- function(sex) {
   return(all.data)
 }
 
-#Returns dataset for country by sex
+#' Takes in a country and sex and returns a dataset for that country by sex
+#' 
+#' @param country   Country to get data for
+#' @param sex       Sex of 'boys', 'girls', or 'both'
+#' @return          The dataset for that country by sex
 GetCountryData <- function(country, sex) {
   data; #Data representing the student group (sex) from country
   if (sex == "girls") {
@@ -51,7 +58,13 @@ GetCountryData <- function(country, sex) {
   return(country.data)
 }
 
-#Creates a scatter plot comparing country rate against the worldwide average
+#' Takes in a country and sex and returns a scatter plot comparing country 
+#' rate against the worldwide average.
+#' 
+#' @param country   Country to get data for
+#' @param sex       Sex of 'boys', 'girls', or 'both'
+#' @return          The scatter plot comparing given country's rate against the
+#'                      worldwide average.
 Scatter <- function(country, sex) {
   country.data <- GetCountryData(country, sex) #Chosen country's data
   all.data <- GetAllCountriesAvg(sex) #Data of all countries

@@ -1,3 +1,8 @@
+#' Takes in a dataframe, removes unnecessary columns (such as footnotes and types),
+#' and then returns it.
+#'
+#' @param data    A dataframe
+#' @return        The formatted dataframe
 FormatData <- function(data) {
   data.format <- data[c(1:225),c(1:80)]
   col.names.temp <- vector()
@@ -10,6 +15,10 @@ FormatData <- function(data) {
   return(data.format)
 }
 
+#' Takes in a dataframe, transposes it, and then returns it.
+#' 
+#' @param data    A dataframe
+#' @return        The transposed dataframe
 TransposeData <- function(data) {
   data.transpose <- t(data)
   colnames(data.transpose) <- data.transpose['Country',]
@@ -23,6 +32,11 @@ TransposeData <- function(data) {
   return(data.transpose)
 }
 
+#' Takes in a dataframe and returns the slope of a linear regression
+#' for each column.
+#' 
+#' @param data.transpose    A dataframe
+#' @return                  The slope of a linear regression for each column
 CalculateAvgChange <- function(data.transpose) {
   avg.change <- vector()
   for (i in colnames(data.transpose)[2:ncol(data.transpose)]) {
@@ -38,6 +52,11 @@ CalculateAvgChange <- function(data.transpose) {
   return(avg.change)
 }
 
+#' Takes in a dataframe, removes rows that have NA in the avg.change column,
+#' and then returns the filtered dataframe.
+#' 
+#' @param data    A dataframe
+#' @return        The filtered dataframe
 RemoveNA <- function(data) {
   data <- data %>% 
     filter(!is.na(avg.change))

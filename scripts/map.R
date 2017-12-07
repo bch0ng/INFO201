@@ -1,8 +1,14 @@
-# Set up libraries
+# Sets up libraries
 library(dplyr)
 library(highcharter)
 
-# Creates a world map of given dataset
+#' Takes in a dataframe, sex, and range of values, and returns a world map 
+#' of the given dataframe.
+#' 
+#' @param df            A dataframe
+#' @param print.sex     Sex of 'Boys', 'Girls', or 'Boys and Girls'
+#' @param data.range    Sequenced values from minimum to maximum of each sex's avg.change
+#' @return              A world map visualization of countries, sex, and their avg.change
 CreateHCMap <- function(df, print.sex, data.range) {
   map <- hcmap("custom/world-robinson-lowres", data = df,
                name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "Country"),
