@@ -60,7 +60,7 @@ Scatter <- function(country, sex) {
   
   #Plot graph with only average line
   scatterplot <- plot_ly() %>% 
-    layout(title = paste(country, "Average per Year"),
+    layout(title = paste(country, "Completion Rate vs. World Average Rate (1990 - 2014)"),
            xaxis = list(title = 'Year', zeroline = TRUE, tickangle = -45),
            yaxis = list(title = 'Rate'),
            showlegend = FALSE) %>% 
@@ -74,7 +74,7 @@ Scatter <- function(country, sex) {
                                              y = ~country.data$V1, type="scatter", 
                                              mode="markers",
                                              hoverinfo = 'text',
-                                             text = ~paste(year, " ", country, "Rate: ", V1,
+                                             text = ~paste(year, " ", country, " Rate: ", V1,
                                                            sep = ""))
   }
   return(scatterplot)
