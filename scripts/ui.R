@@ -3,6 +3,7 @@ library(plotly)
 
 shinyUI(navbarPage('Millenium Development Goals: Education',
                    # tags$head(tags$script(src="script.js")),
+                   id = 'navbar',
                    fluid = TRUE,
                    theme = 'styles.css',
                    tabPanel('About',
@@ -90,5 +91,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                             max = 115, value = c(30,115))
                               )
                             )
-                   )
+                   ),
+                   
+                   tags$div(id = 'footer')
 ))
