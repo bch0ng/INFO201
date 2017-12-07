@@ -8,7 +8,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('About',
                             h1(id = 'appTitle', 'Millenium Development Goals: Education'),
                             h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                            sidebarPanel(class = 'hideSidePanel'),
                             mainPanel(
                               h4('Project Description'),
                               p('The aim of this project is to visualize global education trends and its various factors. 
@@ -39,6 +38,20 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               br(),
                               a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
                    ),
+                   
+                   tabPanel('Country Averages',
+                            mainPanel(
+                              id = 'map',
+                              br(),
+                              br(),
+                              plotlyOutput('map', width = 'auto'),
+                              
+                              strong('Note:'),
+                              p('Some of the countries, whose data are not available, are omitted in the map.')
+                              # tableOutput("scatter.table"),
+                            )
+                   ),
+                   
                    tabPanel('Table',
                             sidebarLayout(
                               mainPanel(
@@ -56,23 +69,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                              selected = 1),
                                 sliderInput("table.max", 'Primary Completed Rate', min = 30, 
                                             max = 115, value = c(30,115))
-                              )
-                            )
-                   ),
-                   tabPanel('Country Averages',
-                            sidebarLayout(
-                              mainPanel(
-                                h3(id = 'mapHeader', 'Average Change in Primary School Completion, 1990-2014'),
-                                br(),
-                                br(),
-                                plotlyOutput('map'),
-                                
-                                strong('Note:'),
-                                p('Some of the countries, whose data are not available, are omitted in the map.')
-                                # tableOutput("scatter.table"),
-                              ),
-                              sidebarPanel(
-                                class = 'hideSidePanel'
                               )
                             )
                    )
