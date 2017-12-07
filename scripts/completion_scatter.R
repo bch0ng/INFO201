@@ -37,7 +37,7 @@ GetCountryData <- function(country, sex) {
 
 Scatter <- function(country, sex) {
   d <- GetCountryData(country, sex)
-  scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter", mode="lines") %>% 
+  scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter", mode="markers") %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
