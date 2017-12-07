@@ -56,6 +56,8 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                             sidebarLayout(
                               mainPanel(
                                 h3('Comparing Country Completion Rates Against World Average'),
+                                p('How have completion rates changed in each country for girls and boys?
+                                  How does this completion rate compare to the world average?'),
                                 plotlyOutput('scatter.table')
                               ),
                               sidebarPanel(
@@ -63,7 +65,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                              choices = list("Female" = "girls", "Male" = "boys",
                                                             "Both" = "both"),selected = "girls"),
                                 selectInput("scatter.country", 'Country', 
-                                            choices = dropdown.choices)
+                                            choices = dropdown.choices, selected = "Algeria")
                               )
                             )
                    ),
