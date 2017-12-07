@@ -108,7 +108,8 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    # Table of the latest data
                    tabPanel('2013 Primary Completion Data',
                             mainPanel(
-                              h3(class = 'header', 'Primary School Completion'),
+                              id = 'table',
+                              h3('Primary School Completion'),
                               tableOutput('table')
                             ),
                             sidebarPanel(

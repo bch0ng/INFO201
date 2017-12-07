@@ -84,6 +84,11 @@ nav.navbar.navbar-default.navbar-static-top ul {
   float: right;
 }
 
+div#table.col-sm-8 {
+  height: 750px;
+  overflow-y: scroll;
+}
+
 footer {
   position: fixed;
   width: 100%;
