@@ -4,8 +4,14 @@ library(shiny)
 shinyUI(navbarPage('Millenium Development Goals: Education',
                    fluid = TRUE,
                    theme = 'styles.css',
+                   tabPanel('About',
+                     h3('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
+                     sidebarPanel(),
+                     mainPanel(
+                      textOutput('about')
+                     )
+                   ),
                    tabPanel('Table',
-                            h4('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
                             sidebarLayout(
                               mainPanel(
                                 h3(id = 'tableHeader', 'Primary School Completion'),
@@ -26,7 +32,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                             )
                    ),
                    tabPanel('Country Averages',
-                            h4('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
                             sidebarLayout(
                               mainPanel(
                                 h3(id = 'mapHeader', 'Average Change in Primary School Completion, 1990-2014'),
