@@ -39,6 +39,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                 plotlyOutput('map')
                               ),
                               sidebarPanel(
+                                id = 'mapSidePanel'
                               )
                             )
                    )
