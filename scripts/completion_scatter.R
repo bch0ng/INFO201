@@ -47,6 +47,7 @@ Scatter <- function(country, sex) {
            ),
            yaxis = list(title = 'Average'
            ))
+  return(scatterplot)
 }
 
 
