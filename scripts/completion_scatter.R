@@ -39,8 +39,9 @@ CountryData <- function(country, sex) {
 
 Scatter <- function(country, sex) {
   choice <- CountryData(country, sex)
-  scatterplot <- plot_ly(choice, type="scatter", x = ~choice$year[3:27], y = ~paste0(choice, "$V1[3:27]")) %>% 
-    layout(title = 'Average per Year',
+  choice <- choice[c(3:27),]
+  scatterplot <- plot_ly(choice, type="scatter", x = ~choice$year, y = ~choice$V1) %>% 
+    layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
            ),
