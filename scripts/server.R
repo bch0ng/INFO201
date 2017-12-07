@@ -49,6 +49,11 @@ shinyServer(function(input, output) {
     ggplotly(p)
   })
   
+  output$about <- renderText({
+    return('The aim of this project is to visualize global education trends and its various factors. Such factors include environment pollution, HIV/AIDS education, and population by gender. By looking at our finished project, our audience will be able to answer the following questions:
+            (1) How have education rates changed over the years in the countries we are looking at? (2) What are the education rates of countries by males, females, and both in 2014?')
+  })
+  
   output$scatter.table <- renderTable({
     #plot_ly(girls.completion, x = )
   })
