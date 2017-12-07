@@ -10,7 +10,9 @@ library(highcharter)
 #' @param data.range    Sequenced values from minimum to maximum of each sex's avg.change
 #' @return              A world map visualization of countries, sex, and their avg.change
 CreateHCMap <- function(df, print.sex, data.range) {
-  map <- hcmap("custom/world-robinson-lowres", data = df,
+  
+  # thm <- hc_theme_merge(hc_theme_elementary(), hc_theme(backgroundColor = "red"))
+  map <- hcmap("custom/world-robinson-highres", data = df,
                name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "Country"),
                borderColor = "transparent") %>%
     hc_colorAxis(dataClasses = color_classes(data.range)) %>% 
@@ -33,6 +35,34 @@ CreateHCMap <- function(df, print.sex, data.range) {
                 useHTML = TRUE,
                 style = list(color = '#466551'),
                 text = '<strong>Note:</strong> Some of the countries, whose data are not available, are whited out on the map.<br />'
-    )
+    ) %>%
+    hc_add_theme(hc_theme(
+      colors = c('red', 'green', 'blue'),
+      chart = list(
+        backgroundColor = NULL,
+        divBackgroundImage = "http://media3.giphy.com/media/FzxkWdiYp5YFW/giphy.gif"
+      ),
+      title = list(
+        style = list(
+          color = '#333333',
+          fontFamily = "Lato"
+        )
+      ),
+      subtitle = list(
+        style = list(
+          color = '#666666',
+          fontFamily = "Shadows Into Light"
+        )
+      ),
+      legend = list(
+        itemStyle = list(
+          fontFamily = 'Tangerine',
+          color = 'black'
+        ),
+        itemHoverStyle = list(
+          color = 'gray'
+        )   
+      )
+    ))
   return(map)
 }

@@ -19,15 +19,15 @@ dropdown.choices <- both.completion$Country
 #' @return       The dataset for all countries' primary completion average by sex
 GetAllCountriesAvg <- function(sex) {
   if (sex == "girls") {
-    data <- girls.completion
+	data <- girls.completion
   } else if (sex == "boys") {
-    data <- boys.completion
+	data <- boys.completion
   } else {
-    data <- both.completion
+	data <- both.completion
   }
   #Prepares data for graphing
   all.data <- data[c(3:length(data))] %>% 
-    summarize_all(funs(mean(., na.rm=TRUE)))
+	summarize_all(funs(mean(., na.rm=TRUE)))
   all.data <- as.data.frame(t(all.data))
   all.data <- data.frame(year = row.names(all.data), all.data, row.names = NULL)
   all.data$year <- gsub('X', '', all.data$year)
@@ -42,14 +42,14 @@ GetAllCountriesAvg <- function(sex) {
 GetCountryData <- function(country, sex) {
   data; #Data representing the student group (sex) from country
   if (sex == "girls") {
-    data <- girls.completion
+	data <- girls.completion
   } else if (sex == "boys") {
-    data <- boys.completion
+	data <- boys.completion
   } else {
-    data <- both.completion
+	data <- both.completion
   }
   country.data <- data %>% filter(Country == country) %>% 
-    select(-CountryCode, -Country)
+	select(-CountryCode, -Country)
   #Prepares data for graphing
   trans <- as.data.frame(t(country.data))
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
@@ -71,22 +71,23 @@ Scatter <- function(country, sex) {
   
   #Plot graph with only average line
   scatter.plot <- plot_ly() %>% 
-    layout(title = paste(country, "Completion Rate vs. World Average Rate (1990 - 2014)"),
-           xaxis = list(title = 'Year', zeroline = TRUE, tickangle = -45),
-           yaxis = list(title = 'Rate'),
-           showlegend = FALSE) %>% 
-    #Adds average line
-    add_trace(data=all.data, x = ~all.data$year, y = ~all.data$V1, 
-              type="scatter", mode = "lines", hoverinfo = 'text',
-              text = ~paste(year, "Worldwide Average: ", format(round(V1, 2), nsmall = 2)))
+	layout(title = paste("<br>", country, "Completion Rate vs. World Average Rate (1990 - 2014)"),
+		   xaxis = list(title = paste0("<br>", "Year"), zeroline = TRUE, tickangle = -10),
+		   yaxis = list(title = paste0("Rate", "<br>")),
+		   showlegend = FALSE) %>% 
+	#Adds average line
+	add_trace(data=all.data, x = ~year, y = ~V1, 
+			  type="scatter", mode = "lines+markers", hoverinfo = 'text',
+			  text = ~paste(year, "Worldwide Average: ", format(round(V1, 2), nsmall = 2)))
   if (nrow(country.data) > 0) {
-    #Only adds country's value if there are some values (not all null)
-    scatter.plot <- scatter.plot %>% add_trace(data=country.data, x = ~country.data$year, 
-                                             y = ~country.data$V1, type="scatter", 
-                                             mode="markers",
-                                             hoverinfo = 'text',
-                                             text = ~paste(year, " ", country, " Rate: ", V1,
-                                                           sep = ""))
+	#Only adds country's value if there are some values (not all null)
+
+	scatter.plot <- scatter.plot %>% add_trace(data=country.data, x = ~year, 
+											 y = ~V1, type="scatter", 
+											 mode="markers",
+											 hoverinfo = 'text',
+											 text = ~paste(year, " ", country, " Rate: ", V1,
+														   sep = ""))
   }
   return(scatter.plot)
 }
