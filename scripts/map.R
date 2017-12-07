@@ -3,10 +3,9 @@ library(shiny)
 library(dplyr)
 library(plotly)
 library(tidyr)
-library(xlsx)
- 
+
+# read the data of average change in education rates 
 df <- read.csv('./../data/abcd.csv', stringsAsFactors = FALSE)
-View(df)
 
 # light grey boundaries
 l <- list(color = toRGB('grey'), width = 0.5)
@@ -18,24 +17,15 @@ g <- list(
   projection = list(type = 'Mercator')
 )
 
-min(df$avg.change)
-max(df$avg.change)
-median(df$avg.change)
-
+# render map
 p <- plot_geo(df) %>%
   add_trace(
     z = ~avg.change, color = ~avg.change, colors = 'Purples',
-    text = ~country.name, locations = ~country.three.letter.code, marker = list(line = l)
-  ) %>%
-  colorbar(title = 'Average change in primary education rate 1990 - 2014', limits = c(-3, 5)) %>%
+    text = ~country.name, locations = ~country.three.letter.code, marker = list(line = l)) %>%
+  colorbar(title = 'Average change in \n primary education rate\n 1990 - 2014', limits = c(-3, 5)) %>%
   layout(
     title = 'Average Change of Education Rate Around the World from 1990 to 2014',
     geo = g
   )
 
 p
-
-# mapbox api token: pk.eyJ1IjoiamVleWF3biIsImEiOiJjamFyYXUyYnIxOXJ4MzNwZnF1dGM4ejE4In0.4RjG8TJVaGmjhAG2We6MBA
-
-# Sys.setenv("plotly_username"="jeeyawn")
-# Sys.setenv("plotly_api_key"="pk.eyJ1IjoiamVleWF3biIsImEiOiJjamFyYXUyYnIxOXJ4MzNwZnF1dGM4ejE4In0.4RjG8TJVaGmjhAG2We6MBA")
