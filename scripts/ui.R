@@ -31,7 +31,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                   our data will be filtered and grouped by data rows. In addition, we will join our datasets 
                                   to compare current and past data in country trends. External libraries, such as Dplyr and Shiny, will enable us 
                                   to create a dynamic web page with interactive graphics.')
-                             )
+                             ),
                      h3('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
                      mainPanel(
                        textOutput('about')
