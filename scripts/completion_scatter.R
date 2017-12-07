@@ -18,7 +18,6 @@ both.completion <- FormatData(read.csv('./data/Completion_both.csv', stringsAsFa
 #   summarize_all(funs(mean(., na.rm=TRUE)))
 
 GetAllCountriesAvg <- function(sex) {
-  data;
   if (sex == "girls") {
     data <- girls.completion
   } else if (sex == "boys") {
@@ -30,6 +29,7 @@ GetAllCountriesAvg <- function(sex) {
     summarize_all(funs(mean(., na.rm=TRUE)))
   all.data <- as.data.frame(t(all.data))
   all.data <- data.frame(year = row.names(all.data), all.data, row.names = NULL)
+  return(all.data)
 }
 
 #Function: filter for country in dataset
@@ -56,15 +56,18 @@ Scatter <- function(country, sex) {
   d <- GetCountryData(country, sex)
 
   all.data <- GetAllCountriesAvg(sex)
-  scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter") %>% 
-
+# scatterplot <- plot_ly(d, x = ~d$year, y = ~d$V1, type="scatter") %>% 
+  scatterplot <- plot_ly() %>% 
+    add_trace(data=d, x = ~d$year, y = ~d$V1, type="scatter", mode="markers") %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
            ),
            yaxis = list(title = 'Average'
-           )) 
-
+           ),
+           showlegend = FALSE) %>% 
+    add_trace(data=all.data, x = ~all.data$year, y = ~all.data$V1, type="scatter", mode = "lines")
+# scatterplot %>% add_trace(x = all.data$year, y = all.data$V1, mode = "line")
   return(scatterplot)
 }
 
