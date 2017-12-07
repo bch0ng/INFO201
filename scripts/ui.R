@@ -30,7 +30,14 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                   factor, etc.)To view more specific trends, 
                                   our data will be filtered and grouped by data rows. In addition, we will join our datasets 
                                   to compare current and past data in country trends. External libraries, such as Dplyr and Shiny, will enable us 
-                                  to create a dynamic web page with interactive graphics.')
+                                  to create a dynamic web page with interactive graphics.'),
+                               br(),
+                               h4('Sources'),
+                               a('Millenium Development Goals: Education', href = 'http://databank.worldbank.org/data/reports.aspx?source=millennium-development-goals'),
+                               br(),
+                               a('Millenium Development Goals Indicators', href = 'http://mdgs.un.org/unsd/mdg/Data.aspx'),
+                               br(),
+                               a('World Bank: Education Statistics - All Indicators', href = 'http://databank.worldbank.org/data/reports.aspx?source=Education%20Statistics')
                              )
                    ),
                    tabPanel('Table',
