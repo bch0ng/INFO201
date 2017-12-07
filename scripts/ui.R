@@ -46,7 +46,11 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('Country Averages',
                             mainPanel(
                               id = 'map',
+<<<<<<< HEAD
 
+=======
+                              tags$div(class = 'loader'),
+>>>>>>> Adds loading animation
                               h3('Loading...'),
                               strong('Note:'),
                               p('Some of the countries, whose data are not available, are greyed in the map.'),
