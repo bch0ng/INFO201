@@ -103,7 +103,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                              choices = list("Female" = "girls", "Male" = "boys",
                                                             "Both" = "both"),selected = "girls"),
                                 selectInput("scatter.country", 'Country', 
-                                            choices = dropdown.choices)
+                                            choices = dropdown.choices, selected = 'Algeria')
                               )
                    ),
                    # Table of the latest data
