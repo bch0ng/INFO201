@@ -8,7 +8,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('About',
                              h1(id = 'appTitle', 'Millenium Development Goals: Education'),
                              h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                             sidebarPanel(),
+                             sidebarPanel(class = 'hideSidePanel'),
                              mainPanel(
                                h4('Project Description'),
                                p('The aim of this project is to visualize global education trends and its various factors. 
