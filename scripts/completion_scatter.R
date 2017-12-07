@@ -2,11 +2,11 @@ library(dplyr)
 library(plotly)
 library(shiny)
 
-source("./scripts/education_completed_data_wrangling.R")
+source("../scripts/education_completed_data_wrangling.R")
 
-girls.completion <- FormatData(read.csv('./data/Completion_girls.csv', stringsAsFactors = FALSE))
-boys.completion <- FormatData(read.csv('./data/Completion_boys.csv', stringsAsFactors = FALSE))
-both.completion <- FormatData(read.csv('./data/Completion_both.csv', stringsAsFactors = FALSE))
+girls.completion <- FormatData(read.csv('../data/Completion_girls.csv', stringsAsFactors = FALSE))
+boys.completion <- FormatData(read.csv('../data/Completion_boys.csv', stringsAsFactors = FALSE))
+both.completion <- FormatData(read.csv('../data/Completion_both.csv', stringsAsFactors = FALSE))
 
 #Girls and boys average completion rates; for trend line
 # girls.avg <- girls.completion[c(3:length(girls.completion))] %>% 

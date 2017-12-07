@@ -46,6 +46,7 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               br(),
                               plotlyOutput('map', width = 'auto'),
                               
+                              
                               strong('Note:'),
                               p('Some of the countries, whose data are not available, are omitted in the map.')
                               # tableOutput("scatter.table"),
