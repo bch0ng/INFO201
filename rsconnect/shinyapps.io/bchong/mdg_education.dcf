@@ -5,8 +5,8 @@ account: bchong
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 245769
-bundleId: 1121202
+bundleId: 1121239
 url: https://bchong.shinyapps.io/mdg_education/
-when: 1512660061.91946
+when: 1512660837.7512
 asMultiple: FALSE
 asStatic: FALSE
