@@ -6,10 +6,9 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    fluid = TRUE,
                    theme = 'styles.css',
                    tabPanel('About',
-<<<<<<< HEAD
                              h1(id = 'appTitle', 'Millenium Development Goals: Education'),
                              h3(id = 'names', 'By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                             sidebarPanel(),
+                             sidebarPanel(class = 'hideSidePanel'),
                              mainPanel(
                                h4('Project Description'),
                                p('The aim of this project is to visualize global education trends and its various factors. 
@@ -33,15 +32,6 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                                   to compare current and past data in country trends. External libraries, such as Dplyr and Shiny, will enable us 
                                   to create a dynamic web page with interactive graphics.')
                              )
-=======
-                     h3('By Patricia Au, Brandon Chong, Jisoo Kim, Satvik Shukla, Jion Yi'),
-                     mainPanel(
-                       textOutput('about')
-                     ),
-                     sidebarPanel(
-                       class = 'hideSidePanel'
-                     )
->>>>>>> 2803e02ac49290a2b8dd634a054e60a1196b5ae0
                    ),
                    tabPanel('Table',
                             sidebarLayout(
