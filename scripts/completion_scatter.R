@@ -1,6 +1,6 @@
 library(dplyr)
 library(plotly)
-setwd("~/Desktop/INFO201/INFO201")
+
 source("./scripts/education_completed_data_wrangling.R")
 
 girls.completion <- FormatData(read.csv('./data/Completion_girls.csv', stringsAsFactors = FALSE))
@@ -40,7 +40,7 @@ CountryData <- function(country, sex) {
 Scatter <- function(country, sex) {
   choice <- CountryData(country, sex)
   choice <- choice[c(3:27),]
-  scatterplot <- plot_ly(choice, type="scatter", x = ~choice$year, y = ~choice$V1) %>% 
+  scatterplot <- plot_ly(choice, type="scatter", x = ~choice$year, y = ~choice$V1, mode = "markers") %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year',
                         zeroline = TRUE
@@ -50,7 +50,7 @@ Scatter <- function(country, sex) {
   return(scatterplot)
 }
 
-
+d <- Scatter("Algeria", "girls")
 # fit <- lm(price ~ carat, data = df)
 # plot_ly(df1, x = carat, y = price, mode = "markers") %>% 
 # add_trace(data = df, x = carat, y = fitted(fit), mode = "lines")
