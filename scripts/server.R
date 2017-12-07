@@ -55,8 +55,8 @@ shinyServer(function(input, output) {
   # })
   
   output$map <- renderHighchart2({
-    mappy <- hcmap("custom/world-robinson-lowres", data = df,
-                   name = "Avg Change", value = "avg.change", joinBy = c("name", "country.name"),
+    map <- hcmap("custom/world-robinson-lowres", data = df,
+                   name = "Avg Rate Change in %", value = "avg.change", joinBy = c("name", "country.name"),
                    borderColor = "transparent") %>%
       hc_colorAxis(dataClasses = color_classes(c(seq(-3, 5, by = 1), 30))) %>% 
       hc_legend(layout = "vertical", align = "right",
@@ -65,8 +65,11 @@ shinyServer(function(input, output) {
                        enableMouseWheelZoom = TRUE, 
                        mouseWheelSensitivity = 1.05,
                        enableDoubleClickZoomTo = TRUE) %>% 
-      hc_title(text = 'Average Change in Primary Education Rate 1990-2014')
-      return(mappy)
+      hc_title(text = 'Average Change in Primary Education Rate 1990-2014') %>% 
+      hc_subtitle(align = 'center',
+                  useHTML = TRUE,
+                  text = '<strong>Note:</strong> Some of the countries, whose data are not available, are greyed out on the map')
+      return(map)
   })
   # render table
   output$scatter.table <- renderPlotly({

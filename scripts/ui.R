@@ -52,8 +52,8 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                               tags$div(class = 'loader'),
 >>>>>>> Adds loading animation
                               h3('Loading...'),
-                              strong('Note:'),
-                              p('Some of the countries, whose data are not available, are greyed in the map.'),
+                              # strong('Note:'),
+                              # p('Some of the countries, whose data are not available, are greyed in the map.'),
                               highchartOutput('map')
                               # tableOutput("scatter.table"),
                             )
