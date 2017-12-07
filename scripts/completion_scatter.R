@@ -33,7 +33,7 @@ GetCountryData <- function(country, sex) {
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
   return(country.data)
 }
-d <- GetCountryData("Algeria", "girls")
+#d <- GetCountryData("Al", "girls")
 
 
 Scatter <- function(country, sex) {
