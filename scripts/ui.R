@@ -1,5 +1,9 @@
 library(shiny)
 library(plotly)
+library(rCharts)
+
+# require(devtools)
+# install_github('rCharts', 'ramnathv')
 
 
 shinyUI(navbarPage('Millenium Development Goals: Education',
@@ -42,13 +46,11 @@ shinyUI(navbarPage('Millenium Development Goals: Education',
                    tabPanel('Country Averages',
                             mainPanel(
                               id = 'map',
-                              br(),
-                              br(),
-                              plotlyOutput('map', width = 'auto'),
-                              
-                              
+
+                              h3('Loading...'),
                               strong('Note:'),
-                              p('Some of the countries, whose data are not available, are omitted in the map.')
+                              p('Some of the countries, whose data are not available, are greyed in the map.'),
+                              highchartOutput('map')
                               # tableOutput("scatter.table"),
                             )
                    ),

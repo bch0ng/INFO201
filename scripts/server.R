@@ -7,6 +7,9 @@ source('education_completed_data_wrangling.R')
 source('map.R')
 source('completion_scatter.R')
 
+# require(devtools)
+# install_github('rCharts', 'ramnathv')
+
 # Reading in the data and formatting it to be more accessible
 both.sex <- FormatData(read.csv('../data/DisplayByIndicator.csv', stringsAsFactors = FALSE))
 boys <- FormatData(read.csv('../data/Completion_boys.csv', stringsAsFactors = FALSE))
@@ -47,10 +50,24 @@ shinyServer(function(input, output) {
   })
   
   # render map
-  output$map <- renderPlotly({
-    ggplotly(p)
-  })
+  # output$map <- renderPlotly({
+  #   ggplotly(p)
+  # })
   
+  output$map <- renderHighchart2({
+    mappy <- hcmap("custom/world-robinson-lowres", data = df,
+                   name = "Avg Change", value = "avg.change", joinBy = c("name", "country.name"),
+                   borderColor = "transparent") %>%
+      hc_colorAxis(dataClasses = color_classes(c(seq(-3, 5, by = 1), 30))) %>% 
+      hc_legend(layout = "vertical", align = "right",
+                floating = TRUE, valueDecimals = 1, valueSuffix = "%") %>%
+      hc_mapNavigation(enabled = TRUE, 
+                       enableMouseWheelZoom = TRUE, 
+                       mouseWheelSensitivity = 1.05,
+                       enableDoubleClickZoomTo = TRUE) %>% 
+      hc_title(text = 'Average Change in Primary Education Rate 1990-2014')
+      return(mappy)
+  })
   # render table
   output$scatter.table <- renderPlotly({
     sex <- input$scatter.sex
