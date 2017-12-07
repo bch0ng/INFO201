@@ -1,0 +1,12 @@
+name: mdg_education
+title: MDG: Education
+username:
+account: bchong
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 245769
+bundleId: 1120884
+url: https://bchong.shinyapps.io/mdg_education/
+when: 1512648521.85952
+asMultiple: FALSE
+asStatic: FALSE

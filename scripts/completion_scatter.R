@@ -5,13 +5,17 @@ library(shiny)
 
 source("scripts/education_completed_data_wrangling.R")
 
+#Girls completion rate data for all countries
 girls.completion <- FormatData(read.csv('data/Completion_girls.csv', stringsAsFactors = FALSE))
+#Boys completion rate data for all countries
 boys.completion <- FormatData(read.csv('data/Completion_boys.csv', stringsAsFactors = FALSE))
+#Girls + boys completion rate data for all countries
 both.completion <- FormatData(read.csv('data/Completion_both.csv', stringsAsFactors = FALSE))
 
 #For ui.R dropdown
 dropdown.choices <- both.completion$Country
 
+#Returns dataset for world (all countries) average by sex 
 GetAllCountriesAvg <- function(sex) {
   if (sex == "girls") {
     data <- girls.completion
@@ -20,6 +24,7 @@ GetAllCountriesAvg <- function(sex) {
   } else {
     data <- both.completion
   }
+  #Prepares data for graphing
   all.data <- data[c(3:length(data))] %>% 
     summarize_all(funs(mean(., na.rm=TRUE)))
   all.data <- as.data.frame(t(all.data))
@@ -28,9 +33,9 @@ GetAllCountriesAvg <- function(sex) {
   return(all.data)
 }
 
-#Filter for country in dataset
+#Returns dataset for country by sex
 GetCountryData <- function(country, sex) {
-  data;
+  data; #Data representing the student group (sex) from country
   if (sex == "girls") {
     data <- girls.completion
   } else if (sex == "boys") {
@@ -38,9 +43,9 @@ GetCountryData <- function(country, sex) {
   } else {
     data <- both.completion
   }
-  
   country.data <- data %>% filter(Country == country) %>% 
     select(-CountryCode, -Country)
+  #Prepares data for graphing
   trans <- as.data.frame(t(country.data))
   country.data <- data.frame(year = row.names(trans), trans, row.names = NULL)
   country.data$year <- gsub('X', '', country.data$year)
@@ -48,30 +53,28 @@ GetCountryData <- function(country, sex) {
   return(country.data)
 }
 
-
-#Scatter("Algeria", "girls")
-# Scatter("Australia", "girls")
-# GetCountryData("Australia", "girls")
-# GetCountryData("Algeria", "girls")
-
+#Create scatterplot comparing country rate against the worldwide average
 Scatter <- function(country, sex) {
-  d <- GetCountryData(country, sex)
-  all.data <- GetAllCountriesAvg(sex)
+  country.data <- GetCountryData(country, sex) #Chosen country's data
+  all.data <- GetAllCountriesAvg(sex) #Data of all countries
+  
   #Plot graph with only average line
   scatterplot <- plot_ly() %>% 
     layout(title = paste(country, "Average per Year"),
            xaxis = list(title = 'Year', zeroline = TRUE, tickangle = -45),
-           yaxis = list(title = 'Average'),
+           yaxis = list(title = 'Rate'),
            showlegend = FALSE) %>% 
     #Adds average line
     add_trace(data=all.data, x = ~all.data$year, y = ~all.data$V1, 
-              type="scatter", mode = "lines", text = ~paste("Worldwide: ", format(round(V1, 2), nsmall = 2)))
-  if (nrow(d) > 0) {
+              type="scatter", mode = "lines", hoverinfo = 'text',
+              text = ~paste(year, "Worldwide Average: ", format(round(V1, 2), nsmall = 2)))
+  if (nrow(country.data) > 0) {
     #Only adds country's value if there are some values (not all null)
-    scatterplot <- scatterplot %>% add_trace(data=d, x = ~d$year, 
-                                             y = ~d$V1, type="scatter", 
+    scatterplot <- scatterplot %>% add_trace(data=country.data, x = ~country.data$year, 
+                                             y = ~country.data$V1, type="scatter", 
                                              mode="markers",
-                                             text = ~paste(country, ": ", V1,
+                                             hoverinfo = 'text',
+                                             text = ~paste(year, " ", country, "Rate: ", V1,
                                                            sep = ""))
   }
   return(scatterplot)
