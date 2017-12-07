@@ -5,6 +5,7 @@ library(plotly)
 library(tidyr)
 source('education_completed_data_wrangling.R')
 source('map.R')
+source('completion_scatter.R')
 
 # Reading in the data and formatting it to be more accessible
 both.sex <- FormatData(read.csv('../data/DisplayByIndicator.csv', stringsAsFactors = FALSE))
